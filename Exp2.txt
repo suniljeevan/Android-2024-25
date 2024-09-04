@@ -93,3 +93,47 @@ xmlns:android="http://schemas.android.com/apk/res/android"
  app:layout_constraintBottom_toBottomOf="parent"
  app:layout_constraintTop_toBottomOf="@+id/calcBtn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+MainActivity.java
+
+
+
+
+public class MainActivity extends AppCompatActivity {
+private EditText t1,t2;
+private Button b;
+private TextView res;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+       t1=findViewById(R.id.wtBox);
+       t2=findViewById(R.id.htBox);
+       b=findViewById(R.id.calcBtn);
+       res=findViewById(R.id.result);
+       b.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+              double w=Double.parseDouble(t1.getText().toString());
+              double h=Double.parseDouble(t2.getText().toString());
+              double bmi=w/(h/100*h/100);
+               if(bmi < 18.5)
+                   res.setText("The BMI is: "+bmi+" \n Under Weight ");
+               else if (bmi >= 18.5 && bmi < 24.9)
+                   res.setText("The BMI is: "+bmi+" \n Healthy ");
+               else if (bmi >= 24.9 && bmi < 30)
+                   res.setText("The BMI is: "+bmi+" \n Over Weight ");
+               else if (bmi>=30)
+                   res.setText("The BMI is: "+bmi+" \n Suffering from obesity ");
+           }
+       });
+
+    }
+}

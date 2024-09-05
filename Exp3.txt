@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String res1 = "Name: "+name.getText().toString()+"\nFather Name: "+fname.getText().toString()+"\nGender: "+rb.getText()+"\nPlace of Birth: "+places.getText().toString();
-                Toast.makeText(MainActivity.this,res1,Toast.LENGTH_SHORT).show()
+                Toast.makeText(MainActivity.this,res1,Toast.LENGTH_SHORT).show();
             }
         });
     }

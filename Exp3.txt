@@ -121,3 +121,46 @@ xmlns:android="http://schemas.android.com/apk/res/android"
  app:layout_constraintTop_toBottomOf="@+id/PlaceBox"
  app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+MainActivity.java
+
+
+public class MainActivity extends AppCompatActivity {
+    EditText name,fname;
+    AutoCompleteTextView places;
+    RadioGroup rg;
+    RadioButton rb;
+    Button btn;
+    String[] Locations = {"Bangalore","Delhi","Pune","Bombay","Chennai","Hyderabad","Calcutta"};
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item,Locations);
+        places.setThreshold(1);
+        places.setAdapter(adapter);
+        name=findViewById(R.id.NameBox);
+        fname=findViewById(R.id.FNameBox);
+        places=findViewById(R.id.PlaceBox);
+        rg=findViewById(R.id.GenderGroup);
+        btn=findViewById(R.id.SubmitBtn);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                rb=findViewById(i);
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String res1 = "Name: "+name.getText().toString()+"\nFather Name: "+fname.getText().toString()+"\nGender: "+rb.getText()+"\nPlace of Birth: "+places.getText().toString();
+                Toast.makeText(MainActivity.this,res1,Toast.LENGTH_SHORT).show()
+            }
+        });
+    }
+}

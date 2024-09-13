@@ -151,3 +151,17 @@ String subjectSelected=null;
     }
 }
 
+
+
+
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="Subject_array">
+        <item>Mobile Application Development</item>
+        <item>Java Fullstack Development</item>
+        <item>Advanced Java Programming</item>
+        <item>Natural Language Processing</item>
+        <item>DevOps and Microservices</item>
+
+    </string-array>
+</resources>

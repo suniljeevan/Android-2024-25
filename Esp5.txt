@@ -119,3 +119,37 @@ step 2 : activity_main.xml
         app:layout_constraintTop_toBottomOf="@+id/selectdob" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+3. MainActivty.java
+
+public class MainActivity extends AppCompatActivity {
+    private EditText un,aadhar,dob;
+   private int age;
+   private Button b;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        un=findViewById(R.id.editun);
+        aadhar=findViewById(R.id.editaadhar);
+        b=findViewById(R.id.check);
+        dob=findViewById(R.id.selectdob);
+        Calendar c= Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        int month=c.get(Calendar.MONTH);
+        int day=c.get(Calendar.DATE);
+       DatePickerDialog date = new DatePickerDialog(MainActivity.this, android.R.style.Theme_DeviceDefault_DialogWhenLarge, new DatePickerDialog.OnDateSetListener() {
+           @Override
+           public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+               age=year-i;
+               dob.setText(i2+"/"+(i1+1)+"/"+i);
+           }
+       },(year,month,day);
+       date.show();
+         }
+}

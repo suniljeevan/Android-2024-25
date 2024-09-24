@@ -158,4 +158,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
          }
+
+public void check(View v) {
+        Intent intent = new Intent(getApplicationContext(),ResultActivity.class);
+         intent.putExtra("AGE",age);
+         intent.putExtra("USER",un.getText().toString());
+         intent.putExtra("AADHAR",aadhar.getText().toString());
+         startActivity(intent);
+    }
+
+
+
+
 }

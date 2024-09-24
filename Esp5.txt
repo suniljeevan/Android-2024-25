@@ -168,7 +168,29 @@ public void check(View v) {
          startActivity(intent);
     }
 
-
-
-
 }
+
+ResultActivity.java
+
+// your package
+
+public class ResultActivity extends AppCompatActivity {
+    private TextView res;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_result);
+        res=findViewById(R.id.result);
+        Intent intent = getIntent();
+        int age=intent.getIntExtra("AGE",18);
+        String user=intent.getStringExtra("USER");
+        String aadhar=intent.getStringExtra("AADHAR");
+        if(age>=18)
+            res.setText(user+" with aadhar"+aadhar+" is eligible for vote");
+        else
+            res.setText(user+" with aadhar"+aadhar+" is not eligible for vote");
+    }
+}
+
+

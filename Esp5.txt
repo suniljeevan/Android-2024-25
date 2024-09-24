@@ -115,6 +115,7 @@ step 2 : activity_main.xml
         android:layout_marginStart="13dp"
         android:layout_marginTop="42dp"
         android:text="check"
+	android:onClick="check"
         app:layout_constraintStart_toEndOf="@+id/dob"
         app:layout_constraintTop_toBottomOf="@+id/selectdob" />
 

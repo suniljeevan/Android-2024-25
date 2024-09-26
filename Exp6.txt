@@ -1,0 +1,92 @@
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cake Bakery"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cakeBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/itemLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="Cake Flavour"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/cakeBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+    <Spinner
+        android:id="@+id/cakeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toTopOf="@+id/cakeImage"
+        app:layout_constraintStart_toEndOf="@+id/itemLbl"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/dateLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date of Delivery"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cakeImage"
+        app:layout_constraintTop_toBottomOf="@+id/itemLbl"
+        app:layout_constraintBottom_toTopOf="@+id/timeLbl" />
+    <ImageView
+        android:id="@+id/cakeImage"
+        android:layout_width="157dp"
+        android:layout_height="152dp"
+        app:srcCompat="@drawable/calender"
+        android:onClick="selectDate"
+        app:layout_constraintBottom_toTopOf="@+id/timeImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateLbl"
+        app:layout_constraintTop_toBottomOf="@+id/cakeBox" />
+    <TextView
+        android:id="@+id/timeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time of Delivery"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/orderBtn"
+        app:layout_constraintEnd_toStartOf="@id/timeImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateLbl"
+        android:contentDescription="@null"/>
+    <ImageView
+        android:id="@+id/timeImage"
+        android:layout_width="192dp"
+        android:layout_height="102dp"
+        android:onClick="selectTime"
+        app:layout_constraintBottom_toTopOf="@+id/orderBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timeLbl"
+        app:layout_constraintTop_toBottomOf="@+id/cakeImage"
+        app:srcCompat="@drawable/time" />
+    <Button
+        android:id="@+id/orderBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Place Order"
+        android:onClick="placeOrder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeImage"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

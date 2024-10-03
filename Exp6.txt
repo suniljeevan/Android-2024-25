@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 Spinner sp;
 String[] items={"Vanila","Strawery","Choco","mixed"};
 String dateselected,timeSelected;
+String itemSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,5 +113,27 @@ String dateselected,timeSelected;
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp.setAdapter(adapter);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                itemSelected=adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                itemSelected="Nothing Selected";
+            }
+        });
+    }
+
+    public void bringDate(View v) {
+        Calendar c=Calendar.getInstance();
+        int pYear=c.get(Calendar.YEAR);
+        int pMonth=c.get(Calendar.MONTH);
+        int pDay=c.get(Calendar.DATE);
+        
+    }
+    public void bringTime(View v) {
+
     }
 }

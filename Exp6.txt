@@ -131,6 +131,15 @@ String itemSelected;
         int pYear=c.get(Calendar.YEAR);
         int pMonth=c.get(Calendar.MONTH);
         int pDay=c.get(Calendar.DATE);
+DatePickerDialog dialog = new DatePickerDialog(this,
+                android.R.style.Theme_DeviceDefault_DialogWhenLarge, new
+                DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateselected = dayOfMonth+"/"+(month+1)+"/"+year;
+                    }
+                },pYear,pMonth,pDay);
+        dialog.show();
         
     }
     public void bringTime(View v) {

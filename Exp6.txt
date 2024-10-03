@@ -73,7 +73,7 @@ activity_main.xml
         android:id="@+id/timeImage"
         android:layout_width="192dp"
         android:layout_height="102dp"
-        android:onClick="selectTime"
+        android:onClick="bringTime"
         app:layout_constraintBottom_toTopOf="@+id/orderBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/timeLbl"
@@ -158,10 +158,10 @@ String itemSelected;
 
     }
     public void placeOrder(View v) {
-        Intent intent=new Intent(getApplicationContext(),SelectedItem.class);
+            Intent intent=new Intent(getApplicationContext(),SelectedItem.class);
         intent.putExtra("ITEM",itemSelected);
-        intent.putExtra("DATE",itemSelected);
-        intent.putExtra("TIME",itemSelected);
+        intent.putExtra("DATE",dateselected);
+        intent.putExtra("TIME",timeSelected);
         startActivity(intent);
     }
 }

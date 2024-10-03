@@ -131,7 +131,8 @@ String itemSelected;
         int pYear=c.get(Calendar.YEAR);
         int pMonth=c.get(Calendar.MONTH);
         int pDay=c.get(Calendar.DATE);
-DatePickerDialog dialog = new DatePickerDialog(this,
+
+        DatePickerDialog dialog = new DatePickerDialog(this,
                 android.R.style.Theme_DeviceDefault_DialogWhenLarge, new
                 DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -140,9 +141,50 @@ DatePickerDialog dialog = new DatePickerDialog(this,
                     }
                 },pYear,pMonth,pDay);
         dialog.show();
-        
     }
     public void bringTime(View v) {
+        Calendar c=Calendar.getInstance();
+        int pH=c.get(Calendar.HOUR_OF_DAY);
+        int pM=c.get(Calendar.MINUTE);
+        int pS=c.get(Calendar.SECOND);
+        TimePickerDialog dialog = new TimePickerDialog(this,
+                android.R.style.Theme_DeviceDefault_DialogWhenLarge, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                timeSelected=i+":"+i1;
+            }
+        },pH,pM,false);
+        dialog.show();
+
+    }
+    public void placeOrder(View v) {
+        Intent intent=new Intent(getApplicationContext(),SelectedItem.class);
+        intent.putExtra("ITEM",itemSelected);
+        intent.putExtra("DATE",itemSelected);
+        intent.putExtra("TIME",itemSelected);
+        startActivity(intent);
+    }
+}
+
+
+
+//SelecedItem activity
+
+//add your package
+
+public class SelectedItem extends AppCompatActivity {
+    TextView tv;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+       tv=findViewById(R.id.result);
+       Intent intent=getIntent();
+       String item=intent.getStringExtra("ITEM");
+        String dates=intent.getStringExtra("DATE");
+        String times=intent.getStringExtra("TIME");
+     tv.setText(item+"\n"+dates+"\n"+times);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_selected_item);
 
     }
 }

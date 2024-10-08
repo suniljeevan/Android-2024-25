@@ -1,0 +1,138 @@
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:onClick="bringFragment"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="142dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView2"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/burger" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="26dp"
+        android:onClick="bringFragment"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:srcCompat="@drawable/pizza" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="com.example.fragmentdemo.BlankFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="113dp"
+        android:layout_marginBottom="382dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+fragment_blank.xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BlankFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        tools:ignore="RtlCompat"
+        android:text="Burger Details\n Calories:354\nFat:18g\nProtein:22g" />
+
+</FrameLayout>
+
+
+
+fragment_blank2.xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BlankFragment2">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Pizza Details\nCalories:285\nFat:10g\nProtein:12g"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        tools:ignore="RtlCompat"
+     />
+
+</FrameLayout>
+
+MainActivity.java
+
+//ur package 
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+           }
+      public void bringFragment(View v) {
+        //Constructor of Fragment is private by Default
+          //so Fragment can not be created directly
+          //to create fragment (to load) we require
+          //FragmentFactory
+          //FragmentManager is the factory
+          //getSupportFragmentManager() is a static
+          //method , independent to object
+          Fragment f;
+          FragmentManager fm = getSupportFragmentManager();
+          FragmentTransaction ft = fm.beginTransaction();
+          if(v==findViewById(R.id.imageView)) {
+          f = new BlankFragment();
+          ft.replace(R.id.fragmentContainerView2,f);
+          ft.commit();
+          }
+          else {
+              f = new BlankFragment2();
+              ft.replace(R.id.fragmentContainerView2,f);
+              ft.commit();
+          }
+      }
+}

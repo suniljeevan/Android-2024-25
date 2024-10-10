@@ -137,9 +137,13 @@ fragment_Details.xml
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="center"
-        android:textSize="22dp"
         android:gravity="center_vertical"
+        android:text="Name: \nSection Number:"
+        android:textStyle="bold"
+
+        tools:ignore="RtlCompat"
+        android:textSize="22dp"
+
         android:id="@+id/textView"
          />
 

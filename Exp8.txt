@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
         l.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                FragmentManager fm=
-                DetailsFragment frag = (DetailsFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.fragmentPortion);
+                DetailsFragment frag = (DetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentPortion);
                 frag.change(i);
             }
 

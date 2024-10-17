@@ -104,10 +104,24 @@ public class MyService extends Service {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        mp = MediaPlayer.create(this,R.raw.sample);
-        mp.setLooping(true);
-        mp.start();
+   public int onStartCommand(Intent intent, int flags, int startId) {
+        mp = MediaPlayer.create(this,R.raw.chorus);
+
+        Toast.makeText(this,"playing",Toast.LENGTH_SHORT).show();
+                if (mp != null) {
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.setLooping(true);
+                    mp.start();  // Start playback when prepared
+                }
+            });
+            mp.setLooping(true);
+            mp.start();  // If already prepared, start playback immediately
+        } else {
+            Log.e("MyService", "MediaPlayer initialization failed.");
+        }
+
         return START_STICKY;
     }
     public void onDestroy(){

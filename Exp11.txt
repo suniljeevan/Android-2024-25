@@ -104,3 +104,70 @@ activity_main.xml
         app:layout_constraintTop_toBottomOf="@+id/displayBtn"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+public class MyDBHandler extends SQLiteOpenHelper {
+
+    public MyDBHandler(@Nullable Context context, @Nullable String name, @Nullable
+    SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table students (stuId varChar(10),stuname varChar(20))");
+    }
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+    public void insertStudent(String sid,String sname){
+        SQLiteDatabase db = this.getWritableDatabase();
+        //One Way to insert the records using execSQL method
+        db.execSQL("insert into students values (?,?)",
+                new String[]{sid,sname});
+
+        //Alternative Way to insert the records using insert() menthod and ContentValues Object
+ /*ContentValues values = new ContentValues();
+ values.put("stuId",sid);
+ values.put("stuname",sname);
+ db.insert("students",null,values);*/
+        db.close();
+    }
+}
+
+
+//add ur package
+public class MainActivity extends AppCompatActivity {
+    EditText eid,ename;
+    Button ins,del,dis;
+    TextView res;
+    MyDBHandler ob;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+       eid=findViewById(R.id.idBox);
+       ename=findViewById(R.id.nameBox);
+       ins=findViewById(R.id.insertBtn);
+       res=findViewById(R.id.result);
+       ins.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               ob=new MyDBHandler(getApplicationContext(),"StudentDB",null,1);
+               String id,name;
+               id=eid.getText().toString();
+               name=ename.getText().toString();
+               ob.insertStudent(id,name);
+               res.setText("Record Inserted");
+           }
+       });
+
+    }
+}
+
+
+

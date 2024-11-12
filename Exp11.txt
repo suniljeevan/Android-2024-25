@@ -1,0 +1,106 @@
+StudentRepository 
+
+
+activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <EditText
+        android:id="@+id/nameBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Student Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toEndOf="@+id/nameLbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Header"
+        app:layout_constraintBottom_toTopOf="@+id/idBox"/>
+    <TextView
+        android:id="@+id/Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Students Database"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nameBox"/>
+    <TextView
+        android:id="@+id/nameLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nameBox"
+        app:layout_constraintTop_toBottomOf="@+id/Header"
+        app:layout_constraintBottom_toTopOf="@+id/idLbl"/>
+    <TextView
+        android:id="@+id/idLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Id"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/idBox"
+        app:layout_constraintTop_toBottomOf="@+id/nameLbl"
+        app:layout_constraintBottom_toTopOf="@+id/insertBtn"/>
+    <EditText
+        android:id="@+id/idBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Student Id"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toEndOf="@+id/idLbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameBox"
+        app:layout_constraintBottom_toTopOf="@+id/deleteBtn"/>
+    <Button
+        android:id="@+id/insertBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD"
+        app:layout_constraintBottom_toTopOf="@+id/displayBtn"
+        app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idLbl" />
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:text="DELETE"
+        app:layout_constraintBottom_toTopOf="@+id/displayBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/insertBtn"
+        app:layout_constraintTop_toBottomOf="@+id/idBox" />
+    <Button
+        android:id="@+id/displayBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DISPLAY ALL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteBtn"
+        app:layout_constraintBottom_toTopOf="@+id/result"/>
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayBtn"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

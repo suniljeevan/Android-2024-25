@@ -1,0 +1,42 @@
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_main.xml -->
+<LinearLayout xmlns:android=
+    "http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btnOrders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Orders"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnPayments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Payments"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stock"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnValidationLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Validation Logs"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

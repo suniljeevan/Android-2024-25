@@ -136,8 +136,27 @@ public class MyDBHandler extends SQLiteOpenHelper {
  db.insert("students",null,values);*/
         db.close();
     }
-}
+    public void updateStudent(String sid,String sname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update students set stuname=? where stuid=?",
+                new String[]{sname,sid});
+    }
+        public String displayRecord(){
+        String tdata = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from students",
+                null);
+        while (cursor.moveToNext()) {
+            String i = cursor.getString(0);
+            String n = cursor.getString(1);
+            tdata += i+":"+n+"\n";
+        }
+        db.close();
+        return tdata;
+    }
 
+
+}
 
 //add ur package
 public class MainActivity extends AppCompatActivity {

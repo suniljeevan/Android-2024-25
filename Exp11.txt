@@ -142,7 +142,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 //add ur package
 public class MainActivity extends AppCompatActivity {
     EditText eid,ename;
-    Button ins,del,dis;
+    Button ins,upd,dis;
     TextView res;
     MyDBHandler ob;
     @Override
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
        eid=findViewById(R.id.idBox);
        ename=findViewById(R.id.nameBox);
        ins=findViewById(R.id.insertBtn);
+       upd=findViewById(R.id.deleteBtn);
        res=findViewById(R.id.result);
        ins.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -165,9 +166,18 @@ public class MainActivity extends AppCompatActivity {
                res.setText("Record Inserted");
            }
        });
-
+    upd.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ob=new MyDBHandler(getApplicationContext(),"StudentDB",null,1);
+            String id,name;
+            id=eid.getText().toString();
+            name=ename.getText().toString();
+            ob.updateStudent(id,name);
+            res.setText("Record UPdated");
+        }
+    });
     }
 }
-
 
 

@@ -1,42 +1,178 @@
 activity_main.xml
+
 <?xml version="1.0" encoding="utf-8"?>
-<!-- activity_main.xml -->
-<LinearLayout xmlns:android=
-    "http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnOrders"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Orders"
-        android:padding="16dp" />
-
-    <Button
-        android:id="@+id/btnPayments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Payments"
-        android:padding="16dp"
-        android:layout_marginTop="8dp"/>
-
-    <Button
-        android:id="@+id/btnStock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stock"
-        android:padding="16dp"
-        android:layout_marginTop="8dp"/>
-
-    <Button
-        android:id="@+id/btnValidationLog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Validation Logs"
-        android:padding="16dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="match_parent"
+        android:padding="8dp" />
 </LinearLayout>
+
+
+
+------------------------------------------------------------------------------------------------
+
+item_layout.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Item Image"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</LinearLayout>
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+MainActivity.java
+
+// ur package
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+        // Set layout manager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Create sample data
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("Item 1", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 2", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 49.99, R.drawable.image2));
+        items.add(new Item("Item 3", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 19.99, R.drawable.image3));
+        items.add(new Item("Item 4", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 5", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 6", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 7", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 8", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 9", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 10", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 11", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 12", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        items.add(new Item("Item 13", "Styleys Travel Organiser for Electronic Accessories, Flexible Padded Dividers, Waterproof, Foam Padding, for Cables", 29.99, R.drawable.image1));
+        // Set adapter
+        ItemAdapter adapter = new ItemAdapter(items);
+        recyclerView.setAdapter(adapter);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------
+
+ItemAdapter.java
+
+package com.example.myapplication;// ItemAdapter.java
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+
+    private final List<Item> items;
+
+    public ItemAdapter(List<Item> items) {
+        this.items = items;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_layout, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Item item = items.get(position);
+        holder.tvTitle.setText(item.getTitle());
+        holder.tvDescription.setText(item.getDescription());
+        holder.tvPrice.setText(String.format("$%.2f", item.getPrice()));
+        holder.itemImage.setImageResource(item.getImageResId());
+
+        // Handle image click
+        holder.itemImage.setOnClickListener(v -> 
+            Toast.makeText(holder.itemView.getContext(), 
+                "Clicked: " + item.getTitle(), 
+                Toast.LENGTH_SHORT).show()
+        );
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvDescription, tvPrice;
+        ImageView itemImage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
+            itemImage = itemView.findViewById(R.id.itemImage);
+        }
+    }
+}

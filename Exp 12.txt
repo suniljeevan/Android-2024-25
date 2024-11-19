@@ -1,3 +1,41 @@
+Create Item class inside your package where MainActivity class is available 
+
+
+public class Item {
+    private String title;
+    private String description;
+    private double price;
+    private int imageResId; // Drawable resource ID for the image
+
+    public Item(String title, String description, double price, int imageResId) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.imageResId = imageResId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getImageResId() {
+        return imageResId;
+    }
+}
+
+
+----------------------------------------------------------------------------------
+
+
+
 activity_main.xml
 
 <?xml version="1.0" encoding="utf-8"?>
@@ -13,7 +51,6 @@ activity_main.xml
         android:layout_height="match_parent"
         android:padding="8dp" />
 </LinearLayout>
-
 
 
 ------------------------------------------------------------------------------------------------

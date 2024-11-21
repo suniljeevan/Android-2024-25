@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/checkBtn"
+        android:layout_width="306dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="51dp"
+        android:onClick="checkBatteryLevel"
+        android:layout_marginBottom="101dp"
+        android:text="Check Battery Percentage"
+        app:layout_constraintBottom_toTopOf="@+id/batteryText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/batteryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="111dp"
+        android:layout_marginBottom="199dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/checkBtn"
+        app:layout_constraintTop_toBottomOf="@+id/checkBtn" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="253dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="195dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/batteryText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+---------------------------------------------------------
+
+MainActivity.java
+
+public class MainActivity extends AppCompatActivity {
+ Button b;
+ TextView tv;
+ ProgressBar progress;
+ MyBatteryReceiver ob;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        tv=findViewById(R.id.batteryText);
+        b=findViewById(R.id.checkBtn);
+        progress=findViewById(R.id.progressBar);
+
+    }
+
+    public void checkBatteryLevel(View view) {
+        ob=new MyBatteryReceiver(tv,progress);
+        registerReceiver(ob,
+                new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
+}
+
+
+
+MyBatteryReceiver.java
+
+package com.example.batterybroadcastdemo;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+public class MyBatteryReceiver extends BroadcastReceiver {
+    TextView tv;
+    ProgressBar prgs;
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        int bat_percentage = intent.
+                getIntExtra("level", 0);
+        if (bat_percentage >= 50) {
+            tv.setText(bat_percentage + "%");
+            prgs.setProgress(bat_percentage);
+            prgs.setProgressTintList
+                    (ColorStateList.valueOf(Color.GREEN));
+
+        } else if (bat_percentage >= 20 && bat_percentage < 50) {
+            tv.setText(bat_percentage + "%");
+            prgs.setProgress(bat_percentage);
+            prgs.setProgressTintList
+                    (ColorStateList.valueOf(Color.YELLOW));
+
+        }else {
+            tv.setText(bat_percentage + "%");
+            prgs.setProgress(bat_percentage);
+            prgs.setProgressTintList
+                    (ColorStateList.valueOf(Color.RED));
+        }
+    }
+    MyBatteryReceiver(TextView t,ProgressBar p) {
+        tv=t;
+        prgs=p;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

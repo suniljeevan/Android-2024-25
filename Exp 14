@@ -1,0 +1,188 @@
+NotificationAPp
+
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <EditText
+        android:id="@+id/bpBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter BP value"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toEndOf="@+id/bpLbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Header"
+        app:layout_constraintBottom_toTopOf="@+id/tempBox"/>
+    <TextView
+        android:id="@+id/tempLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tempBox"
+        app:layout_constraintTop_toBottomOf="@+id/bpLbl"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"/>
+    <TextView
+        android:id="@+id/bpLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Pressure"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bpBox"
+        app:layout_constraintTop_toBottomOf="@+id/Header"
+        app:layout_constraintBottom_toTopOf="@+id/tempLbl"/>
+    <EditText
+        android:id="@+id/tempBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Temperature Value"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toEndOf="@+id/tempLbl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bpBox"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"/>
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tempBox"/>
+    <TextView
+        android:id="@+id/Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Body Vital Details"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bpBox"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+MainActivity.java
+
+
+public class MainActivity extends AppCompatActivity {
+    EditText bp,temp;
+    Button btn;
+    Integer bp_int,temp_int;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bp = findViewById(R.id.bpBox);
+        temp = findViewById(R.id.tempBox);
+        btn = findViewById(R.id.submitBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                bp_int = Integer.parseInt(bp.getText().toString());
+                temp_int = Integer.parseInt(temp.getText().toString());
+                String msg;
+                int notificationId = 100;
+                if((bp_int>=60&&bp_int<=100)||temp_int==98)
+                    msg = "Your Vitals are fine";
+                else
+                    msg = "You need to consult doctor";
+                String CHANNEL_ID = "my_ch";
+                String CHANNEL_NAME = "my_channel";
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                NotificationChannel channel = new
+                        NotificationChannel(CHANNEL_ID,CHANNEL_NAME,importance);
+                NotificationManager manager = (NotificationManager)
+                        getSystemService(NOTIFICATION_SERVICE);
+                manager.createNotificationChannel(channel);
+                Intent it = new Intent(MainActivity.this, NotificationResult.class);
+                it.putExtra("Message",msg);
+                it.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                PendingIntent pintent = PendingIntent.getActivity(MainActivity.this,0,it,PendingIntent.FLAG_IMMUTABLE);
+                NotificationCompat.Builder builder = new
+                        NotificationCompat.Builder(MainActivity.this,CHANNEL_ID);
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setContentIntent(pintent);
+                builder.setContentTitle("Vital Conditions");
+                builder.setContentText("BP: "+bp_int+" Temperature: "+temp_int);
+                manager.notify(notificationId,builder.build());
+
+            }
+        });
+    }
+}
+
+NotificationREsult.java
+
+public class NotificationResult extends AppCompatActivity {
+    TextView res;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_notification_result);
+        onNewIntent(getIntent());
+        NotificationManager manager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(100);
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if (extras.containsKey("Message")) {
+                setContentView(R.layout.activity_notification_result);
+                String msg = extras.getString("Message");
+                res = findViewById(R.id.result);
+                res.setText("Report: " + msg);
+            }
+            super.onNewIntent(intent);
+
+        }
+    }
+}
+
+
+
+activity_notification_result.java
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NotificationResult">
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="40dp"
+        android:textColor="#0F08F0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

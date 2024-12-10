@@ -1,0 +1,52 @@
+public class MainActivity extends AppCompatActivity {
+Button b1,b2;
+ImageView im;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        b1=findViewById(R.id.button);
+        b2=findViewById(R.id.button2);
+        im=findViewById(R.id.imageView2);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation =
+                        AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink);
+                im.startAnimation(animation);
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation =
+                        AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
+                im.startAnimation(animation);
+            }
+        });
+    }
+}
+
+
+
+
+rotate.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <rotate android:fromDegrees="0"
+        android:toDegrees="360"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration = "5000" />
+    <rotate android:fromDegrees="360"
+        android:toDegrees="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset = "6000"
+        android:duration = "5000" />
+
+</set>
+
+
